@@ -22,12 +22,12 @@ const vegetablesDesc = [
 const vegetablesPrices = [2, 3, 2, 1, 4, 5];
 const vegetablesQuantities = [10, 20, 15, 10, 12, 22];
 const vegetablesImgUrls = [
-  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719127498/carrot_yd76j2.jpg",
-  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719127499/broccoli_grpbag.jpg",
-  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719127498/spinach_mtpoom.jpg",
-  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719127498/tomato_ru77pq.jpg",
-  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719127498/capsicum_eh66xq.jpg",
-  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719127498/cucumber_m6jcct.jpg",
+  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719128485/carrot_neipik.jpg",
+  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719128484/broccoli_uv8ny7.jpg",
+  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719128485/spinach_cmenvl.jpg",
+  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719128485/tomato_slrmzx.jpg",
+  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719128485/capsicum_zopafw.jpg",
+  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719128485/cucumber_ve7i5y.jpg",
 ];
 
 const meats = ["Chicken", "Beef", "Pork", "Lamb", "Turkey"];
@@ -41,11 +41,11 @@ const meatsDesc = [
 const meatsPrices = [14, 16, 15, 18, 15];
 const meatsQuantities = [20, 20, 15, 14, 21, 22];
 const meatsImgUrls = [
-  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719127498/chicken_ld6fmf.jpg",
-  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719127498/beef_xndio0.jpg",
-  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719127499/pork_v87gbd.jpg",
-  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719127499/lamb_buz2xu.jpg",
-  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719127498/turkey_qfigay.jpg",
+  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719128484/chicken_quntrs.jpg",
+  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719128484/beef_nmob5n.jpg",
+  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719128484/pork_bnnfuv.jpg",
+  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719128484/lamb_ow2exx.jpg",
+  "https://res.cloudinary.com/dhtsrj5lb/image/upload/v1719128484/turkey_ijxus5.jpg",
 ];
 
 const items = [vegetables, meats];
@@ -58,8 +58,10 @@ const populateCategories = async () => {
   const promises = [];
   for (let i = 0; i < categories.length; i += 1) {
     const category = categories[i];
+    const categoryItems = items[i];
     const document = {
       name: category,
+      items: categoryItems,
     };
     const p = Category.create(document);
     promises.push(p);
