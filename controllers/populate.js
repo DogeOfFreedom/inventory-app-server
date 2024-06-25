@@ -105,12 +105,17 @@ const deleteDB = async (req, res, next) => {
   next();
 };
 
-const populate = () => {
+const populate = (req, res) => {
   // Upload images
   //  upload();
-
-  populateCategories();
-  populateItems();
+  try {
+    populateCategories();
+    populateItems();
+    res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
 };
 
 module.exports = {

@@ -2,9 +2,10 @@ const router = require("express").Router();
 const asyncHandler = require("express-async-handler");
 const { populate, deleteDB } = require("../controllers/populate");
 const { createItem, createCategory } = require("../controllers/create");
-const { validateItem, validateCategory } = require("../controllers/validate");
 const Item = require("../models/item");
 const Category = require("../models/category");
+const { updateItem, updateCategory } = require("../controllers/update");
+const { body } = require("express-validator");
 
 // Get name of categories
 router.get(
@@ -45,9 +46,40 @@ router.get(
 );
 
 // Create
-router.post("/create_category", validateCategory, createCategory);
+router.post("/create_category", createCategory);
 
-router.post("/create_item", validateItem, createItem);
+router.post(
+  "/create_item",
+  body("name", "Item name must be atleast 3 characters")
+    .trim()
+    .notEmpty()
+    .isLength({ min: 3 })
+    .escape(),
+  body("description").trim().escape(),
+  body("category").trim().escape(),
+  body("price", "Price cannot be negative").isInt({ gt: 0 }),
+  body("quantityInStock", "Quantity must be more than 0").isInt({ gt: 0 }),
+  createItem
+);
+
+// Update
+router.put("/category/:id/update", updateCategory);
+
+router.put(
+  "/item/:id/update",
+  body("name", "Name must be atleast 3 characters")
+    .trim()
+    .notEmpty()
+    .isLength({ min: 3 })
+    .escape(),
+  body("description").trim().escape(),
+  body("category").trim().escape(),
+  body("price", "Price cannot be negative").isFloat({ gt: 0 }).toFloat(),
+  body("quantityInStock", "Quantity cannot be negative")
+    .isFloat({ gt: -1 })
+    .toFloat(),
+  updateItem
+);
 
 // Delete
 router.delete(

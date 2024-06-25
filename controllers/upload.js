@@ -1,14 +1,5 @@
 const cloudinary = require("cloudinary").v2;
 
-const API_KEY = "653684641526392";
-const API_SECRET = "O_do993S04mh0gUiYzA3Nyd5TOM";
-cloudinary.config({
-  cloud_name: "dhtsrj5lb",
-  api_key: API_KEY,
-  api_secret: API_SECRET,
-  secure: true,
-});
-
 const files = [
   "images/meats/beef.jpg",
   "images/meats/chicken.jpg",

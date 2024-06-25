@@ -7,11 +7,21 @@ app.use(express.json());
 // cors setup
 const cors = require("cors");
 const allowedOrigin = process.env.ORIGIN || "http://127.0.0.1:5173";
-app.use(cors({ origin: allowedOrigin }));
+app.use(cors({ origin: allowedOrigin, methods: "GET, POST, DELETE, PUT" }));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
+});
+
+// Cloudinary
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: "dhtsrj5lb",
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+  secure: true,
 });
 
 // Connect to db
@@ -22,3 +32,6 @@ mongoose.connect(mongoDB).then(() => console.log("connected to db"));
 
 const general = require("../routers/general");
 app.use(general);
+
+const signedUploadForm = require("../routers/signedUploadForm");
+app.use("/api/signuploadform", signedUploadForm);
