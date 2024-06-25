@@ -27,10 +27,10 @@ router.get(
 
 // Get all items from a specific category
 router.get(
-  "/:category/items",
+  "/:categoryName/items",
   asyncHandler(async (req, res) => {
-    const { chosenCategory } = req.params;
-    const items = await Item.find({ category: chosenCategory });
+    const { categoryName } = req.params;
+    const items = await Item.find({ category: categoryName });
     res.json(JSON.stringify(items));
   })
 );
