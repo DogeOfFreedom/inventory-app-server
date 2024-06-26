@@ -46,7 +46,15 @@ router.get(
 );
 
 // Create
-router.post("/create_category", createCategory);
+router.post(
+  "/create_category",
+  body("name", "Category must be atleast 3 characters")
+    .trim()
+    .notEmpty()
+    .isLength({ min: 3 })
+    .escape(),
+  createCategory
+);
 
 router.post(
   "/create_item",
@@ -63,7 +71,15 @@ router.post(
 );
 
 // Update
-router.put("/category/:id/update", updateCategory);
+router.put(
+  "/category/:id/update",
+  body("name", "Category must be atleast 3 characters")
+    .trim()
+    .notEmpty()
+    .isLength({ min: 3 })
+    .escape(),
+  updateCategory
+);
 
 router.put(
   "/item/:id/update",
