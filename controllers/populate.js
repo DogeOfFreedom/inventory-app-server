@@ -1,6 +1,6 @@
 const Item = require("../models/item");
 const Category = require("../models/category");
-// const upload = require("./upload");
+const upload = require("./upload");
 
 const categories = ["vegetable", "meat"];
 const vegetables = [
@@ -107,7 +107,8 @@ const deleteDB = async (req, res, next) => {
 
 const populate = (req, res) => {
   // Upload images
-  //  upload();
+  upload();
+
   try {
     populateCategories();
     populateItems();
