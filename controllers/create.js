@@ -48,16 +48,14 @@ const createCategory = async (req, res) => {
       message: errorMsg,
     });
   } else {
-    const { id, name } = req.body;
+    const { oldName, newName } = req.body;
     const newDoc = {
-      id,
-      name: name.toLowerCase(),
+      name: newName.toLowerCase(),
     };
 
     try {
       // Check if category name already exists
-      console.log(name);
-      const exists = await Category.exists({ name });
+      const exists = await Category.exists({ name: oldName });
       if (exists) {
         res.json({ message: "Category already exists" });
       } else {

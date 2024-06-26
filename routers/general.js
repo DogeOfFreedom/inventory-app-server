@@ -7,7 +7,7 @@ const Category = require("../models/category");
 const { updateItem, updateCategory } = require("../controllers/update");
 const { body } = require("express-validator");
 
-// Get name of categories
+// Get names of all categories
 router.get(
   "/categories",
   asyncHandler(async (req, res) => {
@@ -45,10 +45,23 @@ router.get(
   })
 );
 
+router.get(
+  "/category/:name/delete_confirmation",
+  asyncHandler(async (req, res) => {
+    const { name } = req.params;
+    const exists = await Item.findOne({ category: name });
+    if (exists) {
+      res.json({ canDelete: false });
+    } else {
+      res.json({ canDelete: true });
+    }
+  })
+);
+
 // Create
 router.post(
   "/create_category",
-  body("name", "Category must be atleast 3 characters")
+  body("newName", "Category must be atleast 3 characters")
     .trim()
     .notEmpty()
     .isLength({ min: 3 })
@@ -72,8 +85,8 @@ router.post(
 
 // Update
 router.put(
-  "/category/:id/update",
-  body("name", "Category must be atleast 3 characters")
+  "/category/:name/update",
+  body("newName", "Category must be atleast 3 characters")
     .trim()
     .notEmpty()
     .isLength({ min: 3 })
@@ -110,10 +123,10 @@ router.delete(
 );
 
 router.delete(
-  "/:categoryId/delete",
+  "/category/:name/delete",
   asyncHandler(async (req, res) => {
-    const { categoryId } = req.params;
-    await Category.deleteOne({ _id: categoryId });
+    const { name } = req.params;
+    await Category.deleteOne({ name });
     res.json({
       message: "Category Deleted",
     });
